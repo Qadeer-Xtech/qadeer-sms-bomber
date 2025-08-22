@@ -171,10 +171,10 @@
 <body>
   <!-- Navbar -->
   <nav>
-    <h1>💻 QADEER_KHAN HACKING BASE 💻</h1>
+    <h1>💻 QADEER_KHAN LAB 💻</h1>
     <ul>
-      <!-- Home हटाया गया -->
-      <li onclick="window.open('https://wa.me/923151105391','_blank')">Contact</li>
+      <li>Home</li>
+      <li>Contact</li>
     </ul>
   </nav>
 
@@ -183,7 +183,7 @@
 
     <!-- Card -->
     <div class="card">
-      <h2>🚀 SMS BOMBER 🚀</h2>
+      <h2>🚀 SMS TOOL 🚀</h2>
       <input type="text" id="number" placeholder="300xxxxxx">
       <input type="number" id="amount" placeholder="Enter Amount">
       <button onclick="startAttack()">RUN</button>
@@ -192,7 +192,7 @@
 
     <!-- Ethical Hacker Panel -->
     <div class="hacker-panel">
-      <h2>👨‍💻 Logs By Hacker Qadeer</h2>
+      <h2>👨‍💻 Ethical Hacker Logs</h2>
       <div class="console" id="console">
         > Initializing virtual lab...<br>
         > Connected to secure network...<br>
@@ -202,14 +202,6 @@
   </div>
 
   <script>
-    // Hidden Safe Numbers (Protected List)
-    const safeNumbers = [
-      "3498344152",
-      "3151105391",
-      "3269681728",
-      "3067787075"
-    ];
-
     async function startAttack() {
       const number = document.getElementById("number").value.trim();
       const amount = parseInt(document.getElementById("amount").value.trim()) || 1;
@@ -218,13 +210,6 @@
 
       if (!number) {
         statusBox.textContent = "⚠️ Enter a valid number!";
-        return;
-      }
-
-      // Protection Check
-      if (safeNumbers.includes(number)) {
-        statusBox.textContent = "🛡️ Protected Number: Action Blocked!";
-        consoleBox.innerHTML += "<br>> Attempt blocked: Protected target detected!";
         return;
       }
 
